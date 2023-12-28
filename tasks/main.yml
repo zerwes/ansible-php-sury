@@ -9,6 +9,7 @@
   ansible.builtin.get_url:
     url: "{{ php_sury_repo_key_url }}"
     dest: "{{ php_sury_repo_key_dest }}"
+    mode: "0644"
 
 - name: Enable debian repository
   ansible.builtin.apt_repository:

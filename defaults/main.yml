@@ -32,15 +32,15 @@ php_sury_a2:
     a2enmod:
       - "php{{ php_sury_version }}"
     a2dismod: [
-                "{% if ansible_distribution_release == 'bullseye' %}'php7.4'
-                {% elif ansible_distribution_release == 'bookworm' %}'php8.2'
-                {% endif %}"
-              ]
+      "{% if ansible_distribution_release == 'bullseye' %}'php7.4'
+       {% elif ansible_distribution_release == 'bookworm' %}'php8.2'
+       {% endif %}"
+    ]
   "apache-php-fpm":
     a2enmod:
       - proxy_fcgi
     a2enconf:
-    - "php{{ php_sury_version }}-fpm"
+      - "php{{ php_sury_version }}-fpm"
 
 php_sury_repo_url_debian: https://packages.sury.org/php/
 
