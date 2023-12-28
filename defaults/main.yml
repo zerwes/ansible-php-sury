@@ -26,6 +26,8 @@ php_sury_packages:
 
 # use ignore_configcheck for en/disabling a2modules?
 php_sury_a2mod_ignore_configcheck: false
+# ignore errors
+php_sury_a2mod_ignore_errors: false
 
 php_sury_a2:
   "apache-php-modules":

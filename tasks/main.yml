@@ -35,6 +35,7 @@
     name: "{{ item }}"
     ignore_configcheck: "{{ php_sury_a2mod_ignore_configcheck | bool }}"
     state: present
+  ignore_errors: "{{ php_sury_a2mod_ignore_errors | bool }}"
   with_items: "{{ php_sury_a2[php_sury_type]['a2enmod'] | default([]) }}"
 
 - name: Enabling required apache modules configs
