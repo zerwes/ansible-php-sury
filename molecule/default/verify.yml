@@ -4,6 +4,8 @@
 - name: Verify
   hosts: all
   gather_facts: true
+  vars:
+    php_sury_version: "{{ lookup('env', 'MOLECULE_PHP_VERSION') | default('8.1', true) }}"
   tasks:
     - name: copy test script
       ansible.builtin.copy:
@@ -15,6 +17,9 @@
     - name: debug php version
       debug:
         var: _phpv
+    - name: debug expected php version
+      debug:
+        var: php_sury_version
     - name: test results
       assert:
         that:

@@ -22,6 +22,7 @@
   ansible.builtin.apt:
     name: "{{ php_sury_packages[php_sury_type] }}"
     update_cache: true
+  notify: "Restart webserver"
 
 - name: Disable conflicting apache modules
   community.general.apache2_module:

@@ -2,10 +2,10 @@
 - name: Converge
   hosts: all
   vars:
-    php_sury_version: 8.1
+    php_sury_version: "{{ lookup('env', 'MOLECULE_PHP_VERSION') | default('8.1', true) }}"
     php_sury_a2mod_ignore_configcheck: true
     php_sury_a2mod_ignore_errors: true
   tasks:
     - name: "Include role"
       include_role:
-        name: "{{lookup('env', 'MOLECULE_ROLE_NAME') | default('ansible-php-sury') }}"
+        name: "{{ lookup('env', 'MOLECULE_ROLE_NAME') | default('ansible-php-sury') }}"
