@@ -3,6 +3,7 @@
   hosts: all
   vars:
     php_sury_version: 8.1
+    php_sury_a2mod_ignore_configcheck: true
   tasks:
     - name: "Include role"
       include_role:
