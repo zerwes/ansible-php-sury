@@ -8,4 +8,4 @@
   tasks:
     - name: "Include role"
       include_role:
-        name: "{{ lookup('env', 'MOLECULE_ROLE_NAME') | default('ansible-php-sury') }}"
+        name: "{{ lookup('env', 'MOLECULE_ROLE_NAME') | default('ansible-php-sury', true) }}"
