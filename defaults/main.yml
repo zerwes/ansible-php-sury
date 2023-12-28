@@ -12,6 +12,8 @@ php_sury_version: "8.1"
 # type to install
 php_sury_type: apache-php-modules
 
+php_sury_webserver: "{% if php_sury_type == 'nginx' %}nginx{% else %}apache2{% endif %}"
+
 php_sury_packages:
   "apache-php-modules":
     - "php{{ php_sury_version }}"

@@ -29,6 +29,7 @@
     ignore_configcheck: "{{ php_sury_a2mod_ignore_configcheck | bool }}"
     state: absent
   with_items: "{{ php_sury_a2[php_sury_type]['a2dismod'] | default([]) }}"
+  notify: "Restart webserver"
 
 - name: Enable required apache modules  # noqa: ignore-errors
   community.general.apache2_module:
@@ -37,12 +38,11 @@
     state: present
   ignore_errors: "{{ php_sury_a2mod_ignore_errors | bool }}"
   with_items: "{{ php_sury_a2[php_sury_type]['a2enmod'] | default([]) }}"
+  notify: "Restart webserver"
 
 - name: Enabling required apache modules configs
   ansible.builtin.command: "a2enconf {{ item }}"
   args:
     creates: "/etc/apache2/conf-enabled/{{ item }}.conf"
   with_items: "{{ php_sury_a2[php_sury_type]['a2enconf'] | default([]) }}"
-
-
-# TODO: notify required services
+  notify: "Restart webserver"
