@@ -31,6 +31,7 @@ php_sury_a2:
   "apache-php-modules":
     a2enmod:
       - "php{{ php_sury_version }}"
+      - mpm_prefork
     a2dismod: [
       "{% if ansible_distribution_release == 'bullseye' %}'php7.4'
        {% elif ansible_distribution_release == 'bookworm' %}'php8.2'
