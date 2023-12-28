@@ -1,0 +1,14 @@
+---
+exclude_paths:
+  - molecule/
+  - .github/
+  - .pre-commit-config.yaml
+  - meta/main.yml
+  - .ansible-lint
+
+#skip_list:
+#  - experimental
+#  - name[casing]
+#  - name[template]
+#  - key-order[task]
+#  - yaml[line-length]

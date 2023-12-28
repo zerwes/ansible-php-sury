@@ -1,0 +1,49 @@
+---
+
+- name: Ensure required packages are installed
+  ansible.builtin.apt:
+    name: "{{ php_sury_prereq }}"
+    update_cache: true
+
+- name: Install repo key
+  ansible.builtin.get_url:
+    url: "{{ php_sury_repo_key_url }}"
+    dest: "{{ php_sury_repo_key_dest }}"
+    mode: "0644"
+
+- name: Enable debian repository
+  ansible.builtin.apt_repository:
+    filename: php-sury
+    repo: "deb [signed-by={{ php_sury_repo_key_dest }}] {{ php_sury_repo_url_debian }} {{ ansible_distribution_release }} main"
+    state: present
+  when: ansible_distribution.lower() == "debian"
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ php_sury_packages[php_sury_type] }}"
+    update_cache: true
+  notify: "Restart webserver"
+
+- name: Disable conflicting apache modules
+  community.general.apache2_module:
+    name: "{{ item }}"
+    ignore_configcheck: "{{ php_sury_a2mod_ignore_configcheck | bool }}"
+    state: absent
+  with_items: "{{ php_sury_a2[php_sury_type]['a2dismod'] | default([]) }}"
+  notify: "Restart webserver"
+
+- name: Enable required apache modules  # noqa: ignore-errors
+  community.general.apache2_module:
+    name: "{{ item }}"
+    ignore_configcheck: "{{ php_sury_a2mod_ignore_configcheck | bool }}"
+    state: present
+  ignore_errors: "{{ php_sury_a2mod_ignore_errors | bool }}"
+  with_items: "{{ php_sury_a2[php_sury_type]['a2enmod'] | default([]) }}"
+  notify: "Restart webserver"
+
+- name: Enabling required apache modules configs
+  ansible.builtin.command: "a2enconf {{ item }}"
+  args:
+    creates: "/etc/apache2/conf-enabled/{{ item }}.conf"
+  with_items: "{{ php_sury_a2[php_sury_type]['a2enconf'] | default([]) }}"
+  notify: "Restart webserver"

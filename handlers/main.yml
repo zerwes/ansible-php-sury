@@ -1,0 +1,6 @@
+---
+
+- name: "Restart webserver"
+  ansible.builtin.service:
+    name: "{{ php_sury_webserver }}"
+    state: restarted

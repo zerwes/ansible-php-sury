@@ -1,0 +1,49 @@
+---
+name: molecule test
+on:
+  pull_request:
+  push:
+  schedule:
+    - cron: "15 6 * * 1"
+jobs:
+  molecule:
+    name: ansible
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ansible:
+          - latest
+          - pinned
+          - legacy
+        distro:
+          - debian11
+          - debian12
+        include:
+          - ansible: latest
+            pip3deps: 'ansible molecule "molecule-plugins[docker]" yamllint ansible-lint'
+          - ansible: pinned
+            pip3deps: '"ansible==8.6.0" "molecule-plugins[docker]" "yamllint==1.32.0" "ansible-lint==6.22.0"'
+          - ansible: legacy
+            pip3deps: '"ansible==2.9.27" "molecule[docker,lint]==3.2.3" "yamllint==1.24.2" "ansible-lint==4.2.0" "requests<2.29" "urllib3<2"'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install test dependencies.
+        run: pip3 install ${{ matrix.pip3deps }}
+
+      - name: Install collections required on ansible 2.9
+        run: ansible-galaxy collection install community.general
+        if: ${{ matrix.ansible == 'legacy' }}
+
+      - name: run molecule tests
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}
