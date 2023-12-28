@@ -1,0 +1,21 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: copy test script
+      ansible.builtin.copy:
+        dest: "{{ php_sury_wwwdir | default('/var/www/html') }}/pv.php"
+        content: '<?php echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION; ?>'
+    - name: register  php version
+      set_fact:
+        _phpv: "{{ lookup('ansible.builtin.url', 'http://'+ansible_default_ipv4.address+'/pv.php') }}"
+    - name: debug php version
+      debug:
+        var: _phpv
+    - name: test results
+      assert:
+        that:
+          - _phpv == php_sury_version

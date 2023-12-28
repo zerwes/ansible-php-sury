@@ -1,0 +1,23 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: debian:${MOLECULE_DISTRO:-debian12}
+    dockerfile: Dockerfile-${MOLECULE_DISTRO:-debian12}.j2
+    privileged: true
+    override_command: false
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+    capabilities:
+      - SYS_ADMIN
+    security_opts:
+      - seccomp=unconfined
+
+provisioner:
+  name: ansible
+
+verifier:
+  name: ansible

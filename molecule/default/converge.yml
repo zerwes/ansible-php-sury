@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    php_sury_version: 8.1
+  tasks:
+    - name: "Include role"
+      include_role:
+        name: "ansible-php-sury"
