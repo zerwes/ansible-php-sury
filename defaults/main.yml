@@ -1,0 +1,48 @@
+---
+
+php_sury_prereq:
+  - ca-certificates
+  - gpg
+  - apt-transport-https
+  - lsb-release
+
+# the version to install
+php_sury_version: "8.1"
+
+# type to install
+php_sury_type: apache-php-modules
+
+php_sury_packages:
+  "apache-php-modules":
+    - "php{{ php_sury_version }}"
+    - "libapache2-mod-php{{ php_sury_version }}"
+  "apache-php-fpm":
+    - "php{{ php_sury_version }}-fpm"
+    - libapache2-mod-fcgid
+  "nginx":
+    - "php{{ php_sury_version }}"
+    - "php{{ php_sury_version }}-fpm"
+    - "php{{ php_sury_version }}-cli"
+
+# use ignore_configcheck for en/disabling a2modules?
+php_sury_a2mod_ignore_configcheck: false
+
+php_sury_a2:
+  "apache-php-modules":
+    a2enmod:
+      - "php{{ php_sury_version }}"
+    a2dismod: [
+                "{% if ansible_distribution_release == 'bullseye' %}'php7.4'
+                {% elif ansible_distribution_release == 'bookworm' %}'php8.2'
+                {% endif %}"
+              ]
+  "apache-php-fpm":
+    a2enmod:
+      - proxy_fcgi
+    a2enconf:
+    - "php{{ php_sury_version }}-fpm"
+
+php_sury_repo_url_debian: https://packages.sury.org/php/
+
+php_sury_repo_key_url: https://packages.sury.org/php/apt.gpg
+php_sury_repo_key_dest: /usr/share/keyrings/deb.sury.org-php.gpg
