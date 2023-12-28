@@ -26,6 +26,12 @@ php_sury_packages:
     - "php{{ php_sury_version }}-fpm"
     - "php{{ php_sury_version }}-cli"
 
+# additional php packages to install
+# example:
+# php_sury_adittional_packages:
+#   - php{{ php_sury_version }}-mysql
+php_sury_adittional_packages: []
+
 # use ignore_configcheck for en/disabling a2modules?
 php_sury_a2mod_ignore_configcheck: false
 # ignore errors
