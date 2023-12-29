@@ -7,7 +7,7 @@
     php_sury_a2mod_ignore_errors: true
     php_sury_remove_packages:
       - php-apcu
-    php_sury_adittional_packages:
+    php_sury_additional_packages:
       - php{{ php_sury_version }}-mysql
       - php{{ php_sury_version }}-apcu
   tasks:
