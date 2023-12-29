@@ -40,6 +40,10 @@ php_sury_additional_packages: []
 #   you need to uninstall the generic php-apcu package,
 #   othervise a install of php8.1-apcu will trigger a upgrade of php-apcu
 #   fetching some php8.3 packages too, mixing up your setup in a inconsistent state
+# example:
+# php_sury_remove_packages:
+#   - php-apcu
+#   - php-imagick
 php_sury_remove_packages: []
 
 # use ignore_configcheck for en/disabling a2modules?
