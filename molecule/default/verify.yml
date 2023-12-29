@@ -11,16 +11,26 @@
       ansible.builtin.copy:
         dest: "{{ php_sury_wwwdir | default('/var/www/html') }}/pv.php"
         content: '<?php echo PHP_MAJOR_VERSION . "." . PHP_MINOR_VERSION; ?>'
-    - name: register  php version
+    - name: register php version from web
       set_fact:
-        _phpv: "{{ lookup('ansible.builtin.url', 'http://'+ansible_default_ipv4.address+'/pv.php') }}"
-    - name: debug php version
+        _phpvweb: "{{ lookup('ansible.builtin.url', 'http://'+ansible_default_ipv4.address+'/pv.php') }}"
+    - name: run php cli for version check
+      command: "php {{ php_sury_wwwdir | default('/var/www/html') }}/pv.php"
+      register: _phpcli
+    - name: register php version from cli
+      set_fact:
+        _phpvcli: "{{ _phpcli.stdout }}"
+    - name: debug php web version
       debug:
-        var: _phpv
+        var: _phpvweb
+    - name: debug php cli version
+      debug:
+        var: _phpvcli
     - name: debug expected php version
       debug:
         var: php_sury_version
     - name: test results
       assert:
         that:
-          - _phpv == php_sury_version
+          - _phpvweb == php_sury_version
+          - _phpvcli == php_sury_version
