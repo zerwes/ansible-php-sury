@@ -26,7 +26,7 @@
 
 - name: Install packages
   ansible.builtin.apt:
-    name: "{{ php_sury_packages[php_sury_type] + php_sury_adittional_packages }}"
+    name: "{{ php_sury_packages[php_sury_type] + php_sury_additional_packages }}"
     update_cache: true
   notify: "Restart webserver"
 

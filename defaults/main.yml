@@ -29,10 +29,10 @@ php_sury_packages:
 
 # additional php packages to install
 # example:
-# php_sury_adittional_packages:
+# php_sury_additional_packages:
 #   - php{{ php_sury_version }}-mysql
 #   - php{{ php_sury_version }}-xml
-php_sury_adittional_packages: []
+php_sury_additional_packages: []
 
 # packages to remove
 # for example, if you like to install php8.1-apcu,
