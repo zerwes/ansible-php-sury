@@ -18,6 +18,12 @@
     state: present
   when: ansible_distribution.lower() == "debian"
 
+- name: Uninstall packages
+  ansible.builtin.apt:
+    name: "{{ php_sury_remove_packages }}"
+    state: absent
+  notify: "Restart webserver"
+
 - name: Install packages
   ansible.builtin.apt:
     name: "{{ php_sury_packages[php_sury_type] + php_sury_adittional_packages }}"

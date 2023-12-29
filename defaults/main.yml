@@ -34,6 +34,14 @@ php_sury_packages:
 #   - php{{ php_sury_version }}-xml
 php_sury_adittional_packages: []
 
+# packages to remove
+# for example, if you like to install php8.1-apcu,
+#   but the latest php version in the repo is 8.3,
+#   you need to uninstall the generic php-apcu package,
+#   othervise a install of php8.1-apcu will trigger a upgrade of php-apcu
+#   fetching some php8.3 packages too, mixing up your setup in a inconsistent state
+php_sury_remove_packages: []
+
 # use ignore_configcheck for en/disabling a2modules?
 php_sury_a2mod_ignore_configcheck: false
 # ignore errors while en/disabling a2modules?
