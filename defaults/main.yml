@@ -10,6 +10,7 @@ php_sury_prereq:
 php_sury_version: "8.1"
 
 # type to install
+# must be one of apache-php-modules, apache-php-fpm or nginx
 php_sury_type: apache-php-modules
 
 php_sury_webserver: "{% if php_sury_type == 'nginx' %}nginx{% else %}apache2{% endif %}"
@@ -30,11 +31,13 @@ php_sury_packages:
 # example:
 # php_sury_adittional_packages:
 #   - php{{ php_sury_version }}-mysql
+#   - php{{ php_sury_version }}-xml
 php_sury_adittional_packages: []
 
 # use ignore_configcheck for en/disabling a2modules?
 php_sury_a2mod_ignore_configcheck: false
-# ignore errors
+# ignore errors while en/disabling a2modules?
+# sometimes required (see https://github.com/ansible-collections/community.general/issues/4592)
 php_sury_a2mod_ignore_errors: false
 
 php_sury_a2:
