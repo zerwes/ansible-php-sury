@@ -22,10 +22,10 @@ jobs:
         include:
           - ansible: latest
             pip3deps: 'ansible molecule "molecule-plugins[docker]" yamllint ansible-lint requests==2.31.0'
-            pythonversion: 3.11
+            pythonversion: 3.13.5
           - ansible: pinned
             pip3deps: '"ansible==11.11.0" "molecule-plugins[docker]" "yamllint==1.32.0" "ansible-lint==6.22.0"'
-            pythonversion: 3.11
+            pythonversion: 3.13.5
           - ansible: legacy
             pip3deps: '"ansible==2.9.27" "molecule[docker,lint]==3.2.3" "yamllint==1.24.2" "ansible-lint==4.2.0" "requests<2.29" "urllib3<2"'
             pythonversion: 3.9
