@@ -41,6 +41,8 @@ jobs:
             ansible: 2.9
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: ansible-php-sury
 
       - name: Set up Python
         uses: actions/setup-python@v2
