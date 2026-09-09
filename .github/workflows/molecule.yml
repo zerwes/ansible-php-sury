@@ -5,6 +5,9 @@ on:
   push:
   schedule:
     - cron: "15 6 * * 1"
+defaults:
+  run:
+    working-directory: ansible-php-sury
 jobs:
   molecule:
     name: ansible
