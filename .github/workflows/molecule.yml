@@ -47,6 +47,18 @@ jobs:
         with:
           python-version: ${{ matrix.pythonversion }}
 
+      - name: debug pre
+        run: |
+          echo "--------------------"
+          python --version
+          echo "--------------------"
+          pwd
+          echo "--------------------"
+          ls -1
+          echo "--------------------"
+          ls -l
+          echo "--------------------"
+
       - name: Install test dependencies.
         run: pip3 install ${{ matrix.pip3deps }}
 
