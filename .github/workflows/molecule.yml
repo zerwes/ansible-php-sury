@@ -17,7 +17,7 @@ jobs:
           - pinned
           - legacy
         distro:
-          - debian11
+          - debian13
           - debian12
         include:
           - ansible: latest
