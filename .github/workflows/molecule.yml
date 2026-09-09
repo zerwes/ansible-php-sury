@@ -86,6 +86,7 @@ jobs:
 
       - name: run molecule tests
         run: molecule test
+        working-directory: ansible-php-sury
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
