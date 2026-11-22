@@ -11,7 +11,7 @@ defaults:
 jobs:
   molecule:
     name: ansible
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -31,7 +31,7 @@ jobs:
             pip3deps: '"ansible>=12,<13" "ansible-core>=2.19,<2.20" molecule "molecule-plugins[docker]" yamllint ansible-lint requests==2.31.0'
             pythonversion: 3.13.5
           - ansible: 11
-            pip3deps: '"ansible==11.13.0" "ansible-core==2.18.15" "molecule-plugins[docker]" "yamllint==1.38.0" "ansible-lint==26.4.0"'
+            pip3deps: '"ansible==11.13.0" "ansible-core==2.18.20" "molecule-plugins[docker]" "yamllint==1.38.0" "ansible-lint==26.11.0"'
             pythonversion: 3.13.5
        #   - ansible: 2.9
        #     pip3deps: '"ansible==2.9.27" "molecule[docker,lint]==3.2.3" "yamllint==1.24.2" "ansible-lint==4.2.0" "requests<2.29" "urllib3<2"'
